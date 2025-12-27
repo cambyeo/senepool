@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>방송 지향점</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap"/>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #1a0b2e;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    .slide-container {
+      width: 1280px;
+      height: 720px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-color: #1a0b2e;
+      color: white;
+    }
+
+    .font-title { font-family: 'Black Han Sans', sans-serif; }
+    .font-hand { font-family: 'Jua', sans-serif; }
+
+    .bg-blob {
+      position: absolute;
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .card-icon-bg {
+      background-color: rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+    }
+
+    .pattern-dots {
+      background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    .highlight-text {
+      color: #fcd34d;
+    }
+  </style>
+</head>
+
+<body>
+<div class="slide-container pattern-dots">
+
+  <!-- Background -->
+  <div class="bg-blob bg-purple-900 w-[900px] h-[900px] -top-64 -right-20 opacity-20"></div>
+  <div class="bg-blob bg-indigo-900 w-[500px] h-[500px] bottom-0 left-0 opacity-30"></div>
+
+  <!-- Header -->
+  <div class="z-10 w-full px-20 pt-16 mb-8 text-center">
+    <div class="inline-block px-4 py-1 rounded-full border border-purple-500 bg-purple-900 bg-opacity-30 mb-4">
+      <p class="text-purple-300 text-sm font-bold tracking-widest uppercase">
+        BROADCASTING GOALS
+      </p>
+    </div>
+
+    <h1 class="text-6xl font-title text-white mb-2 relative inline-block">
+      방송 지향점
+      <i class="fas fa-bullseye text-4xl text-purple-400 absolute -top-4 -right-12 opacity-80"></i>
+    </h1>
+
+    <div class="w-32 h-1.5 bg-purple-500 mx-auto rounded-full mt-4"></div>
+  </div>
+
+  <!-- Main -->
+  <div class="z-10 w-full px-20 flex-1 flex flex-col items-center">
+
+    <div class="mb-12 text-center">
+      <p class="text-3xl font-hand text-purple-100">
+        "즐겁고 <span class="highlight-text text-4xl">친구같은</span>
+        저녁시간을 같이 함께하고 싶어~!"
+      </p>
+    </div>
+
+    <div class="grid grid-cols-3 gap-8 w-full max-w-6xl">
+
+      <div class="glass-card rounded-2xl p-8 text-center">
+        <div class="w-20 h-20 rounded-full card-icon-bg flex items-center justify-center mx-auto mb-6">
+          <i class="fas fa-hand-holding-heart text-4xl text-purple-300"></i>
+        </div>
+        <h3 class="text-2xl font-title mb-3">편안한 소통</h3>
+        <p class="font-hand text-lg text-purple-200">
+          어려워하지 말고 다가와 주세요!<br/>
+          동네 친구처럼 편하게<br/>
+          수다 떨 수 있는 공간입니다.
+        </p>
+      </div>
+
+      <div class="glass-card rounded-2xl p-8 text-center">
+        <div class="w-20 h-20 rounded-full card-icon-bg flex items-center justify-center mx-auto mb-6">
+          <i class="fas fa-comments text-4xl text-yellow-300"></i>
+        </div>
+        <h3 class="text-2xl font-title mb-3">유쾌한 티키타카</h3>
+        <p class="font-hand text-lg text-purple-200">
+          장난치는 것도 좋아해요!<br/>
+          서로 놀리고 반응하며<br/>
+          즐거운 시간을 만들어봐요.
+        </p>
+      </div>
+
+      <div class="glass-card rounded-2xl p-8 text-center">
+        <div class="w-20 h-20 rounded-full card-icon-bg flex items-center justify-center mx-auto mb-6">
+          <i class="fas fa-moon text-4xl text-purple-300"></i>
+        </div>
+        <h3 class="text-2xl font-title mb-3">힐링 저녁시간</h3>
+        <p class="font-hand text-lg text-purple-200">
+          지친 하루의 끝,<br/>
+          세네풀 방송에서 웃으며<br/>
+          피로를 싹 날려버리세요!
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom Banner -->
+  <div class="z-10 w-full mb-12 px-20">
+    <div class="bg-gradient-to-r from-purple-900 to-indigo-900 border border-purple-500 border-opacity-30 rounded-xl p-6 flex items-center justify-center">
+      <i class="fas fa-quote-left text-purple-400 mr-4 opacity-50"></i>
+      <p class="text-xl text-white">
+        오늘도 <span class="text-yellow-300 font-bold">세하</span>로 모여서,
+        <span class="text-yellow-300 font-bold">세바</span>로 행복하게 마무리해요!
+      </p>
+      <i class="fas fa-quote-right text-purple-400 ml-4 opacity-50"></i>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

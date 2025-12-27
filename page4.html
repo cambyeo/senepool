@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>방송 시간표</title>
+
+  <!-- CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap" />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #1a0b2e;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    .slide-container {
+      width: 1280px;
+      height: 720px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-color: #1a0b2e;
+      color: white;
+    }
+
+    .font-title { font-family: 'Black Han Sans', sans-serif; }
+    .font-hand { font-family: 'Jua', sans-serif; }
+
+    .bg-blob {
+      position: absolute;
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .glass-panel {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(139,92,246,0.2);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .day-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 280px;
+      border-radius: 12px;
+      background: rgba(30,20,50,0.6);
+      border: 1px solid rgba(139,92,246,0.2);
+    }
+
+    .day-card.active {
+      background: rgba(139,92,246,0.15);
+      border-color: rgba(139,92,246,0.6);
+    }
+
+    .day-card.rest {
+      background: rgba(0,0,0,0.3);
+      border-color: rgba(255,255,255,0.1);
+      opacity: 0.8;
+    }
+
+    .day-header {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .float-icon {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0); }
+    }
+
+    .stamp-box {
+      transform: rotate(-2deg);
+      border: 2px dashed #fcd34d;
+      background: rgba(252,211,77,0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+
+    <!-- Header -->
+    <div class="z-10 px-16 pt-10 mb-6 flex justify-between items-end">
+      <h1 class="text-5xl font-title">방송 시간표</h1>
+      <div class="glass-panel px-6 py-3 rounded-xl">
+        <p class="font-hand">오후 6시 ~ 10시</p>
+      </div>
+    </div>
+
+    <!-- Schedule -->
+    <div class="z-10 px-12 flex-1">
+      <div class="grid grid-cols-7 gap-4 h-full">
+
+        <div class="day-card rest">
+          <div class="day-header text-gray-400">MON</div>
+          <i class="fas fa-bed text-4xl text-gray-500 mb-4"></i>
+          <p class="font-hand text-gray-400">정기 휴방</p>
+        </div>
+
+        <div class="day-card active">
+          <div class="day-header text-purple-200">TUE</div>
+          <i class="fas fa-gamepad text-4xl text-purple-400 mb-4 float-icon"></i>
+          <p>18:00 ~ 24:00</p>
+        </div>
+
+        <div class="day-card rest">
+          <div class="day-header text-gray-400">WED</div>
+          <i class="fas fa-ghost text-4xl text-gray-500 mb-4"></i>
+          <p class="font-hand text-gray-400">정기 휴방</p>
+        </div>
+
+        <div class="day-card active">
+          <div class="day-header text-purple-200">THU</div>
+          <i class="fas fa-headset text-4xl text-purple-400 mb-4 float-icon"></i>
+          <p>18:00 ~ 24:00</p>
+        </div>
+
+        <div class="day-card active">
+          <div class="day-header text-yellow-200">FRI</div>
+          <i class="fas fa-fire text-4xl text-yellow-400 mb-4 float-icon"></i>
+          <p>18:00 ~ 24:00</p>
+        </div>
+
+        <div class="day-card active">
+          <div class="day-header text-pink-300">SAT</div>
+          <i class="fas fa-bolt text-4xl text-pink-400 mb-4 float-icon"></i>
+          <p>16:00 ~ 20:00</p>
+        </div>
+
+        <div class="day-card active">
+          <div class="day-header text-pink-300">SUN</div>
+          <i class="fas fa-coffee text-4xl text-pink-400 mb-4 float-icon"></i>
+          <p>14:00 ~ 20:00</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="z-10 px-16 mb-8">
+      <div class="stamp-box rounded-xl p-4">
+        <p class="font-hand">
+          시청자의 <span class="text-yellow-300">소환권</span>에 의해  
+          휴방날에도 방송할 수 있습니다!
+        </p>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

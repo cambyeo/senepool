@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>관련 채널 안내</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1a0b2e;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #1a0b2e;
+            color: white;
+        }
+        .font-title { font-family: 'Black Han Sans', sans-serif; }
+        .font-hand { font-family: 'Jua', sans-serif; }
+        
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        /* Link Card Styles */
+        .link-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            text-decoration: none;
+            color: white;
+        }
+
+        .link-card:not(.disabled):hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .link-card.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .icon-box {
+            width: 64px;
+            height: 64px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .link-card:not(.disabled):hover .icon-box {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .card-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .external-icon {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .link-card:hover .external-icon {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Platform Specifics */
+        .cafe .icon-box { background: #03c75a; color: white; } /* Naver Green */
+        .cafe:hover { border-color: #03c75a; }
+        
+        .youtube .icon-box { background: #ff0000; color: white; }
+        .youtube:hover { border-color: #ff0000; }
+
+        .twitter .icon-box { background: #000000; color: white; border: 1px solid #333; }
+        .twitter:hover { border-color: #ffffff; }
+
+        .fancim .icon-box { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); color: #d63384; }
+        .fancim:hover { border-color: #ff9a9e; }
+
+        .discord .icon-box { background: #5865f2; color: white; }
+        
+        .mobile .icon-box { background: #4b5563; color: #9ca3af; }
+
+        /* Footer Message */
+        .footer-message {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .badge-closed {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(0,0,0,0.5);
+            color: #9ca3af;
+            border: 1px solid #4b5563;
+        }
+</style>
+</head>
+<body>
+<div class="slide-container">
+<div class="bg-blob bg-purple-900 w-[1000px] h-[1000px] -bottom-60 -right-40 opacity-20"></div>
+<div class="bg-blob bg-pink-900 w-[600px] h-[600px] top-0 left-0 opacity-10"></div>
+<div class="z-10 w-full px-20 pt-12 mb-10 flex justify-between items-end">
+<div>
+<div class="inline-block px-4 py-1 rounded-full border border-purple-500 bg-purple-900 bg-opacity-30 mb-4">
+<p class="text-purple-300 text-sm font-bold tracking-widest uppercase">COMMUNITY & LINKS</p>
+</div>
+<h1 class="text-5xl font-title text-white tracking-tight">
+                관련 채널 안내
+                <i class="fas fa-link text-3xl text-gray-400 ml-3 align-middle opacity-50"></i>
+</h1>
+</div>
+<div class="text-right pb-2">
+<p class="text-purple-200 font-hand text-xl">"네푸리와 더 가깝게 소통해요!"</p>
+</div>
+</div>
+<div class="z-10 w-full px-20 flex-1">
+<div class="grid grid-cols-2 gap-6 pb-12">
+<a class="link-card cafe" href="https://cafe.naver.com/senepuuul" target="_blank">
+<div class="icon-box">
+<i class="fas fa-coffee"></i>
+</div>
+<div class="card-content">
+<p class="text-sm text-gray-400 font-bold uppercase mb-1">OFFICIAL COMMUNITY</p>
+<h3 class="text-2xl font-title mb-1">네이버 팬카페</h3>
+<p class="text-gray-300 font-hand text-sm">방송 공지, 자유 수다, 팬아트</p>
+</div>
+<i class="fas fa-external-link-alt external-icon text-gray-400"></i>
+</a>
+<a class="link-card youtube" href="https://www.youtube.com/@senepuuul" target="_blank">
+<div class="icon-box">
+<i class="fab fa-youtube"></i>
+</div>
+<div class="card-content">
+<p class="text-sm text-gray-400 font-bold uppercase mb-1">VIDEO ARCHIVE</p>
+<h3 class="text-2xl font-title mb-1">유튜브 채널</h3>
+<p class="text-gray-300 font-hand text-sm">다시보기, 하이라이트 영상</p>
+</div>
+<i class="fas fa-external-link-alt external-icon text-gray-400"></i>
+</a>
+<a class="link-card twitter" href="https://x.com/senepuuul" target="_blank">
+<div class="icon-box">
+<i class="fab fa-x-twitter"></i>
+</div>
+<div class="card-content">
+<p class="text-sm text-gray-400 font-bold uppercase mb-1">SOCIAL MEDIA</p>
+<h3 class="text-2xl font-title mb-1">X (트위터)</h3>
+<p class="text-gray-300 font-hand text-sm">빠른 소식, 일상 공유</p>
+</div>
+<i class="fas fa-external-link-alt external-icon text-gray-400"></i>
+</a>
+<a class="link-card fancim" href="https://fancim.me/celeb/profile.aspx?cu_id=n_AJDpI44ZF/nqmnOJxjCaVA==" target="_blank">
+<div class="icon-box">
+<i class="fas fa-gift"></i>
+</div>
+<div class="card-content">
+<p class="text-sm text-gray-400 font-bold uppercase mb-1">GIFT & SUPPORT</p>
+<h3 class="text-2xl font-title mb-1">팬심 (Fancim)</h3>
+<p class="text-gray-300 font-hand text-sm">현실 선물 보내기</p>
+</div>
+<i class="fas fa-external-link-alt external-icon text-gray-400"></i>
+</a>
+<div class="link-card discord disabled">
+<span class="badge-closed">잠정 폐쇄</span>
+<div class="icon-box">
+<i class="fab fa-discord"></i>
+</div>
+<div class="card-content">
+<p class="text-sm text-gray-500 font-bold uppercase mb-1">VOICE & CHAT</p>
+<h3 class="text-2xl font-title mb-1 text-gray-400">디스코드</h3>
+<p class="text-gray-500 font-hand text-sm">현재 운영하지 않습니다.</p>
+</div>
+</div>
+<div class="link-card mobile disabled">
+<span class="badge-closed">준비중</span>
+<div class="icon-box">
+<i class="fas fa-mobile-alt"></i>
+</div>
+<div class="card-content">
+<p class="text-sm text-gray-500 font-bold uppercase mb-1">MESSENGER</p>
+<h3 class="text-2xl font-title mb-1 text-gray-400">팬심M</h3>
+<p class="text-gray-500 font-hand text-sm">추후 오픈 예정!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

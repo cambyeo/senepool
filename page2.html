@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>세네풀 캐릭터 소개</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap"/>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background-color: #1a0b2e;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    .slide-container {
+      width: 1280px;
+      height: 720px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      color: white;
+      overflow: hidden;
+    }
+
+    .font-title { font-family: 'Black Han Sans', sans-serif; }
+    .font-hand { font-family: 'Jua', sans-serif; }
+
+    .bg-blob {
+      position: absolute;
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .glass-panel {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(139,92,246,0.2);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    }
+
+    .profile-item {
+      display: flex;
+      align-items: center;
+      background: rgba(139,92,246,0.1);
+      border-left: 4px solid #8b5cf6;
+      padding: 12px 20px;
+      border-radius: 0 8px 8px 0;
+    }
+  </style>
+</head>
+
+<body>
+<div class="slide-container">
+
+  <!-- Background -->
+  <div class="bg-blob bg-purple-900 w-[800px] h-[800px] -top-64 -left-20 opacity-20"></div>
+  <div class="bg-blob bg-indigo-900 w-[600px] h-[600px] bottom-0 right-0 opacity-30"></div>
+
+  <!-- Header -->
+  <div class="z-10 w-full px-16 pt-12 pb-6 flex justify-between items-end border-b border-purple-800 border-opacity-30">
+    <div>
+      <p class="text-purple-400 font-bold tracking-widest text-sm uppercase mb-1">WHO IS SHE?</p>
+      <h1 class="text-5xl font-title text-white">캐릭터 소개</h1>
+    </div>
+    <p class="font-hand text-2xl text-purple-200">"월수 정기휴방하는 처녀귀신"</p>
+  </div>
+
+  <!-- Main -->
+  <div class="z-10 flex-1 w-full px-16 py-8 flex gap-12">
+
+    <!-- Left -->
+    <div class="w-5/12">
+      <div class="glass-panel rounded-2xl p-8 h-full flex flex-col">
+        <h2 class="text-3xl font-hand mb-4">
+          <i class="fas fa-book-open text-purple-400 mr-2"></i>RP STORY
+        </h2>
+
+        <div class="bg-black bg-opacity-30 p-6 rounded-xl border border-purple-500 border-opacity-20 mb-4">
+          <p class="text-white font-hand text-lg">
+            컴퓨터실에서 실수로<br/>
+            <span class="text-yellow-300">방송을 켜버린 유령</span>
+          </p>
+        </div>
+
+        <div class="bg-black bg-opacity-30 p-6 rounded-xl border border-purple-500 border-opacity-20">
+          <p class="text-white font-hand text-lg">
+            <span class="text-purple-300">15세 이후</span> 귀신으로 전환된<br/>
+            처녀귀신 스트리머
+          </p>
+        </div>
+
+        <p class="mt-auto text-center text-purple-300 italic">
+          "어라? 이거 켜진 건가? 아노~"
+        </p>
+      </div>
+    </div>
+
+    <!-- Right -->
+    <div class="w-7/12">
+      <div class="glass-panel rounded-2xl p-8 h-full">
+
+        <h2 class="text-3xl font-hand mb-6">
+          <i class="fas fa-id-card text-purple-400 mr-2"></i>BASIC INFO
+        </h2>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="profile-item">
+            <i class="fas fa-signature text-purple-300 text-xl mr-3"></i>
+            <div>
+              <p class="text-xs text-purple-400">Name</p>
+              <p class="text-xl font-bold">세네풀</p>
+            </div>
+          </div>
+
+          <div class="profile-item">
+            <i class="fas fa-dna text-purple-300 text-xl mr-3"></i>
+            <div>
+              <p class="text-xs text-purple-400">Species</p>
+              <p class="text-xl font-bold">유령 (Ghost)</p>
+            </div>
+          </div>
+
+          <div class="profile-item">
+            <i class="fas fa-hourglass-half text-purple-300 text-xl mr-3"></i>
+            <div>
+              <p class="text-xs text-purple-400">Age</p>
+              <p class="text-xl font-bold">15세 (이후 멈춤)</p>
+            </div>
+          </div>
+
+          <div class="profile-item">
+            <i class="fas fa-birthday-cake text-purple-300 text-xl mr-3"></i>
+            <div>
+              <p class="text-xs text-purple-400">Birthday</p>
+              <p class="text-xl font-bold">6월 10일</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

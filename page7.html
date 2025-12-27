@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>방송 규칙</title>
+
+  <!-- CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap" />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #1a0b2e;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    .slide-container {
+      width: 1280px;
+      height: 720px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      color: white;
+    }
+
+    .font-title { font-family: 'Black Han Sans', sans-serif; }
+    .font-hand { font-family: 'Jua', sans-serif; }
+
+    .bg-blob {
+      position: absolute;
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .glass-panel {
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(139,92,246,0.2);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+    }
+
+    .rule-card {
+      display: flex;
+      align-items: center;
+      padding: 24px 32px;
+      margin-bottom: 24px;
+      border-radius: 16px;
+      background: rgba(30,20,50,0.6);
+      border: 1px solid rgba(139,92,246,0.1);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, background-color 0.3s, border-color 0.3s;
+    }
+
+    .rule-card:hover {
+      transform: translateX(10px);
+      background: rgba(139,92,246,0.1);
+      border-color: rgba(139,92,246,0.4);
+    }
+
+    .rule-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+    }
+
+    .rule-danger::before { background-color: #ef4444; }
+    .rule-warning::before { background-color: #f59e0b; }
+    .rule-info::before { background-color: #a855f7; }
+
+    .icon-box {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+      margin-right: 32px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .rule-danger .icon-box { color: #ef4444; background: rgba(239,68,68,0.2); }
+    .rule-warning .icon-box { color: #f59e0b; background: rgba(245,158,11,0.2); }
+    .rule-info .icon-box { color: #a855f7; background: rgba(168,85,247,0.2); }
+
+    .number-badge {
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      font-size: 4rem;
+      font-weight: 900;
+      opacity: 0.05;
+      font-family: 'Black Han Sans', sans-serif;
+      line-height: 1;
+    }
+
+    .typing-effect::after {
+      content: "|";
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="slide-container">
+
+  <!-- Header -->
+  <div class="z-10 w-full px-20 pt-12 mb-8 flex justify-between items-end">
+    <div>
+      <div class="inline-block px-4 py-1 rounded-full border border-purple-500 bg-purple-900 bg-opacity-30 mb-4">
+        <p class="text-purple-300 text-sm font-bold tracking-widest uppercase">BROADCAST RULES</p>
+      </div>
+      <h1 class="text-5xl font-title">
+        방송 규칙
+        <i class="fas fa-check-circle text-3xl text-green-400 ml-3 align-middle opacity-80"></i>
+      </h1>
+    </div>
+    <p class="text-purple-200 font-hand text-xl">"모두가 즐거운 방송을 위해 지켜주세요!"</p>
+  </div>
+
+  <!-- Rules -->
+  <div class="z-10 w-full px-20 flex-1">
+
+    <div class="rule-card rule-danger">
+      <div class="number-badge">01</div>
+      <div class="icon-box"><i class="fas fa-skull-crossbones"></i></div>
+      <div>
+        <h3 class="text-2xl font-title mb-2">지나친 욕설 및 상식 외 행동 금지</h3>
+        <p class="text-gray-300 font-hand text-lg">
+          선 넘는 욕설, 도배, 혐오 표현 등은 절대 금지입니다.<br />
+          서로 존중하는 매너있는 채팅을 부탁드려요!
+        </p>
+      </div>
+    </div>
+
+    <div class="rule-card rule-warning">
+      <div class="number-badge">02</div>
+      <div class="icon-box"><i class="fas fa-microphone-slash"></i></div>
+      <div>
+        <h3 class="text-2xl font-title mb-2">타 스트리머 언급 금지</h3>
+        <p class="text-gray-300 font-hand text-lg">
+          네푸리가 먼저 말하지 않는 경우 타스 언급은 자제해주세요.<br />
+          흐름과 관계없는 중계나 비교는 곤란해요.
+        </p>
+      </div>
+    </div>
+
+    <div class="rule-card rule-info">
+      <div class="number-badge">03</div>
+      <div class="icon-box"><i class="fas fa-shield-heart"></i></div>
+      <div>
+        <h3 class="text-2xl font-title mb-2">지나친 가치코이 주의</h3>
+        <p class="text-gray-300 font-hand text-lg">
+          네푸리는 <span class="text-purple-300">모두의 것</span>입니다!<br />
+          과도한 유사 연애 감정이나 독점욕은 조심해주세요.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="z-10 w-full px-20 mb-12">
+    <div class="border-t border-purple-500 border-opacity-30 pt-6 flex justify-between items-center">
+      <div class="flex items-center text-gray-400 text-sm">
+        <i class="fas fa-info-circle mr-2 text-purple-400"></i>
+        <p>위 규칙을 위반할 경우 경고 또는 제재될 수 있습니다.</p>
+      </div>
+      <div class="bg-gray-800 px-4 py-2 rounded-lg border border-gray-700 opacity-80">
+        <p class="text-xs text-purple-300 font-mono">
+          System: Monitoring <span class="typing-effect text-white">active...</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

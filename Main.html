@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vertical PPT Scroll</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* 전체 스크롤 컨테이너 */
+    .ppt-wrapper {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+    }
+
+    /* 각 슬라이드 */
+    .ppt-page {
+      width: 1280px;
+      height: 720px;
+      margin: 20px auto;
+      scroll-snap-align: start;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* iframe */
+    .ppt-page iframe {
+      width: 1280px;
+      height: 720px;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ppt-wrapper">
+
+    <div class="ppt-page">
+      <iframe src="./page1.html"></iframe>
+    </div>
+
+    <div class="ppt-page">
+      <iframe src="./page2.html"></iframe>
+    </div>
+
+    <div class="ppt-page">
+      <iframe src="./page3.html"></iframe>
+    </div>
+
+    <div class="ppt-page">
+      <iframe src="./page4.html"></iframe>
+    </div>
+
+    <div class="ppt-page">
+      <iframe src="./page5.html"></iframe>
+    </div>
+
+    <div class="ppt-page">
+      <iframe src="./page6.html"></iframe>
+    </div>
+
+    <div class="ppt-page">
+      <iframe src="./page7.html"></iframe>
+    </div>
+
+    <div class="ppt-page">
+      <iframe src="./page8.html"></iframe>
+    </div>
+
+    <div class="ppt-page">
+      <iframe src="./page9.html"></iframe>
+    </div>
+
+    <div class="ppt-page">
+      <iframe src="./page10.html"></iframe>
+    </div>
+    
+    <div class="ppt-page">
+      <iframe src="./page11.html"></iframe>
+    </div>
+    
+    <div class="ppt-page">
+      <iframe src="./page12.html"></iframe>
+    </div>
+    
+
+  </div>
+</body>
+</html>
