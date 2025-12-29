@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+    <title>세네풀 상세 프로필</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FFF5F5;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            position: relative;
+            background-color: #FFF5F5;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+        .decorative-circle {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .circle-1 {
+            width: 500px;
+            height: 500px;
+            background-color: #FED7D7;
+            top: -200px;
+            right: -100px;
+            opacity: 0.4;
+        }
+        .circle-2 {
+            width: 300px;
+            height: 300px;
+            background-color: #FEEBC8;
+            bottom: -50px;
+            left: -50px;
+            opacity: 0.5;
+        }
+        .content-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            gap: 60px;
+            align-items: center;
+        }
+        /* 왼쪽 영역: 이미지 카드 */
+        .image-col {
+            flex: 0 0 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .profile-card {
+            background: white;
+            padding: 15px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(239, 68, 68, 0.15);
+            width: 100%;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            border: 4px solid #FFF;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(239, 68, 68, 0.25);
+        }
+        .profile-img-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #FED7D7;
+            background-color: #FFF0F0;
+        }
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* 오른쪽 영역: 상세 정보 */
+        .info-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 20px;
+        }
+        .section-badge {
+            display: inline-block;
+            background-color: #FEB2B2;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-family: 'Jua', sans-serif;
+            font-size: 20px;
+            margin-bottom: 20px;
+            width: fit-content;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .section-badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .name-title {
+            font-family: 'Jua', sans-serif;
+            font-size: 72px;
+            color: #2D3748;
+            margin-bottom: 30px;
+            line-height: 1;
+            position: relative;
+        }
+        .name-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 120px;
+            height: 8px;
+            background-color: #FC8181;
+            border-radius: 4px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .info-item {
+            background-color: rgba(255, 255, 255, 0.85);
+            border: 2px solid #FED7D7;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+        }
+
+        .info-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .info-icon {
+            width: 45px;
+            height: 45px;
+            background-color: #FFF5F5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #E53E3E;
+            font-size: 20px;
+        }
+        .info-text-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .info-label {
+            font-size: 14px;
+            color: #718096;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .info-value {
+            font-size: 22px;
+            color: #2D3748;
+            font-weight: 700;
+            font-family: 'Jua', sans-serif;
+        }
+        .philosophy-box {
+            background-color: #FFFAF0;
+            border-left: 6px solid #F6AD55;
+            border-radius: 12px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+        }
+
+        .philosophy-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background-color: #FFF8E1;
+        }
+        .philosophy-title {
+            font-family: 'Jua', sans-serif;
+            font-size: 24px;
+            color: #DD6B20;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .philosophy-content {
+            font-size: 19px;
+            line-height: 1.6;
+            color: #4A5568;
+            font-family: 'Noto Sans KR';
+            font-weight: 500;
+            word-break: keep-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="decorative-circle circle-1"></div>
+        <div class="decorative-circle circle-2"></div>
+
+        <div class="content-container">
+            <div class="image-col">
+                <div class="profile-card">
+                    <div class="profile-img-container">
+                        <img alt="세네풀 프로필" class="profile-img" src="./세네풀_증사.jpg"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-col">
+                <div class="section-badge">ABOUT ME</div>
+                <h1 class="name-title">세네풀</h1>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="info-text-group">
+                            <span class="info-label">Age / Birthday</span>
+                            <span class="info-value">???세 / 11월 1일</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-dna"></i></div>
+                        <div class="info-text-group">
+                            <span class="info-label">MBTI</span>
+                            <span class="info-value">INFP-T</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-star"></i></div>
+                        <div class="info-text-group">
+                            <span class="info-label">Hobby</span>
+                            <span class="info-value">낮잠, 그림그리기</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-ghost"></i></div>
+                        <div class="info-text-group">
+                            <span class="info-label">Identity</span>
+                            <span class="info-value">귀여운 유령</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="philosophy-box">
+                    <div class="philosophy-title">
+                        <i class="fas fa-bullhorn"></i>
+                        <span>방송 지향점</span>
+                    </div>
+                    <p class="philosophy-content">
+                        "웃을 땐 함께 웃고, 힘들 땐 조용히 곁에 있어주는 사람.<br/>
+                        일상을 나누며 친구처럼 오래 보고 싶은 방송을 하고 싶다."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

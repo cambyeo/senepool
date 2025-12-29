@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<title>WWE 클립 모음</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Jua&amp;family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+    /* 원본 스타일 유지 */
+    body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        font-family: 'Noto Sans KR', sans-serif;
+        background-color: #FFF5F5;
+    }
+    
+    .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background-color: #FFF5F5;
+        padding: 40px 60px;
+        box-sizing: border-box;
+    }
+
+    .bg-shape {
+        position: absolute;
+        z-index: 0;
+        filter: blur(50px);
+        opacity: 0.5;
+    }
+    .shape-1 {
+        top: -100px;
+        left: 20%;
+        width: 400px;
+        height: 400px;
+        background-color: #FED7D7;
+        border-radius: 50%;
+    }
+    .shape-2 {
+        bottom: -100px;
+        right: 10%;
+        width: 500px;
+        height: 500px;
+        background-color: #FEFCBF;
+        border-radius: 50%;
+    }
+
+    .header-section {
+        z-index: 10;
+        text-align: center;
+        margin-bottom: 40px;
+        position: relative;
+    }
+    
+    .title-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background-color: #C53030;
+        color: white;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-family: 'Jua', sans-serif;
+        font-size: 18px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 6px rgba(197, 48, 48, 0.3);
+    }
+
+    .main-title {
+        font-family: 'Jua', sans-serif;
+        font-size: 52px;
+        color: #2D3748;
+        margin: 0;
+        text-shadow: 2px 2px 0px white;
+    }
+    
+    .main-title span {
+        color: #E53E3E;
+    }
+
+    .clips-wrapper {
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .clip-card {
+        background: white;
+        border-radius: 16px;
+        padding: 15px 25px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+        border: 2px solid transparent;
+        transition: all 0.2s ease;
+        position: relative;
+        cursor: pointer; /* 클릭 가능하도록 변경 */
+    }
+
+    .clip-card:hover {
+        transform: translateX(10px);
+        box-shadow: 0 10px 15px rgba(229, 62, 62, 0.1);
+        border-color: #FEB2B2;
+    }
+
+    .rank-badge {
+        width: 40px;
+        height: 40px;
+        background-color: #EDF2F7;
+        color: #718096;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Jua', sans-serif;
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+    
+    .clip-card.top-pick .rank-badge {
+        background-color: #F6E05E;
+        color: #975A16;
+        font-size: 24px;
+        box-shadow: 0 2px 4px rgba(246, 224, 94, 0.4);
+    }
+    
+    .clip-card.top-pick {
+        background-color: #FFFFF0;
+        border-color: #FBD38D;
+    }
+
+    .clip-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .clip-title {
+        font-family: 'Jua', sans-serif;
+        font-size: 22px;
+        color: #2D3748;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .clip-link {
+        font-size: 14px;
+        color: #718096;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        background-color: rgba(255,255,255,0.5);
+        padding: 4px 8px;
+        border-radius: 6px;
+        width: fit-content;
+    }
+
+    .play-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-color: #FFF5F5;
+        color: #E53E3E;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        border: 2px solid #FED7D7;
+        transition: transform 0.2s;
+        flex-shrink: 0;
+    }
+
+    .clip-card:hover .play-btn {
+        background-color: #E53E3E;
+        color: white;
+        border-color: #C53030;
+        transform: scale(1.1);
+    }
+
+    .mascot-deco {
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        z-index: 20;
+        background-color: white;
+        padding: 15px 25px;
+        border-radius: 20px;
+        border: 3px solid #FBD38D;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        max-width: 350px;
+        transform: rotate(-2deg);
+    }
+    
+    .mascot-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid #FBD38D;
+        background-color: #FFFFF0;
+    }
+    
+    .mascot-text {
+        font-family: 'Jua', sans-serif;
+        font-size: 18px;
+        color: #744210;
+        line-height: 1.4;
+    }
+    
+    .mascot-label {
+        font-size: 12px;
+        color: #D69E2E;
+        font-weight: 700;
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .status-pill {
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-weight: 600;
+    }
+    .status-active { background-color: #C6F6D5; color: #276749; }
+    .status-pending { background-color: #EDF2F7; color: #718096; }
+
+    /* 추가된 영상 모달 스타일 */
+    #clipModal {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.85);
+        display: none; /* 기본 숨김 */
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(8px);
+    }
+    .modal-box {
+        position: relative;
+        width: 1000px;
+        background: black;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    }
+    .close-btn {
+        position: absolute;
+        top: -45px; right: 0;
+        color: white; font-size: 24px;
+        cursor: pointer; font-family: 'Jua';
+    }
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 비율 */
+        height: 0;
+    }
+    .video-container iframe {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+    }
+</style>
+</head>
+<body>
+<div class="slide-container">
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <div id="clipModal" onclick="closeClip()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="close-btn"><i class="fas fa-times mr-2"></i>닫기</div>
+            <div class="video-container">
+                <iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-section">
+        <div class="title-badge"><i class="fas fa-trophy"></i> 2025 딸랑구's PICK</div>
+        <h1 class="main-title">재미있던 <span>WWE</span> 클립 모음</h1>
+        <p style="font-size: 18px; color: #718096; margin-top: 10px; font-weight: 500;">
+            네푸리와 시청자들의 환상의 티키타카 현장!
+        </p>
+    </div>
+
+    <div class="clips-wrapper">
+        <div class="clip-card top-pick" onclick="openClip('https://chzzk.naver.com/embed/clip/sccKLhNNNC')">
+            <div class="rank-badge">1</div>
+            <div class="clip-content">
+                <div class="clip-title">네푸리 육수 우리는중~ <span class="status-pill status-active">BEST</span></div>
+                <div class="clip-link"><i class="fas fa-link"></i> https://chzzk.naver.com/clips/sccKLhNNNC</div>
+            </div>
+            <div class="play-btn"><i class="fas fa-play"></i></div>
+        </div>
+
+        <div class="clip-card" onclick="alert('영상 준비 중입니다!')">
+            <div class="rank-badge">2</div>
+            <div class="clip-content">
+                <div class="clip-title">네푸리 선정 레전드 클립 (예정) <span class="status-pill status-pending">Coming Soon</span></div>
+                <div class="clip-link"><i class="fas fa-clock"></i> 링크가 곧 업데이트될 예정입니다</div>
+            </div>
+            <div class="play-btn"><i class="fas fa-ellipsis-h"></i></div>
+        </div>
+        
+        </div>
+
+    <div class="mascot-deco">
+        <div class="mascot-avatar">
+            <img alt="딸랑구" src="./으흐흐_랑구.jpg" style="width:100%; height:100%; object-fit:cover;"/>
+        </div>
+        <div class="mascot-text-group">
+            <span class="mascot-label">FROM. 딸랑구</span>
+            <p class="mascot-text" style="margin:0;">"내가 직접 고른<br/>레전드 장면들이라구~!"</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openClip(url) {
+        const modal = document.getElementById('clipModal');
+        const player = document.getElementById('videoPlayer');
+        player.src = url; // 전달받은 임베드 주소 삽입
+        modal.style.display = 'flex'; // 모달 표시
+    }
+
+    function closeClip() {
+        const modal = document.getElementById('clipModal');
+        const player = document.getElementById('videoPlayer');
+        player.src = ""; // 영상 주소 제거 (정지 효과)
+        modal.style.display = 'none'; // 모달 숨김
+    }
+</script>
+</body>
+</html>

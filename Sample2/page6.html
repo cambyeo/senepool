@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+    <title>주요 컨텐츠</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&amp;family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FFF5F5;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #FFF5F5;
+            padding: 30px 60px;
+            box-sizing: border-box;
+        }
+
+        /* Background Decorations */
+        .blob {
+            position: absolute;
+            filter: blur(60px);
+            z-index: 0;
+            opacity: 0.4;
+        }
+        .blob-1 { top: -100px; right: -100px; width: 500px; height: 500px; background: #FED7D7; border-radius: 50%; }
+        .blob-2 { bottom: -100px; left: -100px; width: 400px; height: 400px; background: #FEEBC8; border-radius: 50%; }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            z-index: 10;
+        }
+        .main-title {
+            font-family: 'Jua', sans-serif;
+            font-size: 52px;
+            color: #C53030;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0px white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        .sub-title {
+            font-size: 18px;
+            color: #718096;
+            font-weight: 500;
+            background-color: rgba(255,255,255,0.8);
+            padding: 6px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Layout */
+        .content-wrapper {
+            display: flex;
+            gap: 25px;
+            flex: 1;
+            z-index: 10;
+            height: 100%;
+        }
+
+        /* Main Card (Left) */
+        .main-feature-col {
+            flex: 0 0 380px;
+            display: flex;
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 24px;
+            border: 4px solid #FEB2B2;
+            padding: 30px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(229, 62, 62, 0.1);
+            position: relative;
+            overflow: hidden;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        /* Main Card Hover */
+        .main-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: #F56565;
+            box-shadow: 0 20px 30px rgba(229, 62, 62, 0.15);
+        }
+
+        .main-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 10px;
+            background-color: #FEB2B2;
+            transition: height 0.3s;
+        }
+        .main-card:hover::before { height: 15px; background-color: #F56565; }
+
+        .crown-badge {
+            position: absolute;
+            top: 25px; right: 25px;
+            background-color: #F6E05E;
+            color: #B7791F;
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 2px solid white;
+            animation: bounce 2s infinite;
+            z-index: 5;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-8px) rotate(10deg); }
+        }
+
+        .main-icon-circle {
+            width: 120px; height: 120px;
+            background-color: #FFF5F5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: #E53E3E;
+            margin-bottom: 25px;
+            border: 4px solid #FED7D7;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+        }
+        .main-card:hover .main-icon-circle {
+            transform: scale(1.1);
+            background-color: #FED7D7;
+            color: #C53030;
+        }
+
+        .main-card-title {
+            font-family: 'Jua', sans-serif;
+            font-size: 36px;
+            color: #2D3748;
+            margin-bottom: 15px;
+        }
+
+        .main-card-desc {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #4A5568;
+            margin-bottom: 25px;
+            word-break: keep-all;
+        }
+
+        .highlight-tag {
+            background-color: #E53E3E;
+            color: white;
+            padding: 8px 25px;
+            border-radius: 50px;
+            font-family: 'Jua', sans-serif;
+            font-size: 18px;
+            box-shadow: 0 4px 6px rgba(229, 62, 62, 0.3);
+            transition: transform 0.3s;
+        }
+        .main-card:hover .highlight-tag {
+            transform: scale(1.1);
+            background-color: #C53030;
+        }
+
+        /* Grid Area (Right) */
+        .grid-feature-col {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid #FED7D7;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(229, 62, 62, 0.1);
+            border-color: #FC8181;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .icon-box {
+            width: 54px; height: 54px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            flex-shrink: 0;
+            transition: transform 0.3s;
+        }
+        .feature-card:hover .icon-box {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        /* Icon Colors */
+        .icon-horror { background-color: #2D3748; color: #FEB2B2; }
+        .icon-variety { background-color: #FEEBC8; color: #DD6B20; }
+        .icon-nikke { background-color: #E2E8F0; color: #718096; }
+        .icon-viewer { background-color: #B2F5EA; color: #285E61; }
+
+        .feature-title {
+            font-family: 'Jua', sans-serif;
+            font-size: 24px;
+            color: #2D3748;
+        }
+
+        .feature-desc {
+            font-size: 16px;
+            color: #718096;
+            line-height: 1.5;
+            background-color: #F7FAFC;
+            padding: 12px;
+            border-radius: 12px;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        .feature-card:hover .feature-desc {
+            background-color: #FFF5F5;
+        }
+        
+        .feature-desc p { margin: 0; word-break: keep-all; }
+
+        .sticker {
+            position: absolute;
+            font-size: 28px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover .sticker {
+            transform: scale(1.3) rotate(-10deg);
+            opacity: 1 !important;
+        }
+        .main-card:hover .sticker {
+            transform: scale(1.2) translateY(-5px);
+        }
+
+    </style>
+</head>
+<body>
+<div class="slide-container">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="header">
+        <h1 class="main-title">
+            <i class="fas fa-layer-group text-red-400"></i>
+            주요 컨텐츠
+        </h1>
+        <p class="sub-title">세네풀의 방송을 채우는 다양한 재미들!</p>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="main-feature-col">
+            <div class="main-card">
+                <div class="crown-badge"><i class="fas fa-crown"></i></div>
+                <div class="main-icon-circle">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h2 class="main-card-title">저스트 채팅</h2>
+                <div class="main-card-desc">
+                    <p>일상적인 대화와 즐거운 WWE,<br/>
+                    그리고 네풀이를 놀리기 위한<br/>
+                    <strong>하트 폭격</strong>까지!</p>
+                </div>
+                <div class="highlight-tag">
+                    ✨ 네푸리의 최강 컨텐츠!
+                </div>
+                <div class="sticker" style="bottom: 20px; left: 20px; transform: rotate(-15deg);">🎤</div>
+                <div class="sticker" style="top: 85px; left: 20px; transform: rotate(10deg); font-size: 22px;">💬</div>
+                <div class="sticker" style="top: 65px; right: 25px; transform: rotate(-20deg); font-size: 26px;">💕</div>
+            </div>
+        </div>
+
+        <div class="grid-feature-col">
+            <div class="feature-card">
+                <div class="card-header">
+                    <div class="icon-box icon-horror">
+                        <i class="fas fa-ghost"></i>
+                    </div>
+                    <h3 class="feature-title">공포 게임</h3>
+                </div>
+                <div class="feature-desc">
+                    <p>사힐 F, 파피타임 등<br/>다양한 공포게임 진행<br/><span style="color: #E53E3E; font-size: 14px; font-weight: bold;">(※ 비명 주의!)</span></p>
+                </div>
+                <div class="sticker" style="bottom: 12px; right: 12px; opacity: 0.6;">😱</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-header">
+                    <div class="icon-box icon-variety">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="feature-title">종합 게임</h3>
+                </div>
+                <div class="feature-desc">
+                    <p>어디서 이상한 게임만 주워오는<br/>진정한 종겜스...<br/>예측불허 게임 플레이!</p>
+                </div>
+                <div class="sticker" style="bottom: 12px; right: 12px; opacity: 0.6;">🎮</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-header">
+                    <div class="icon-box icon-nikke">
+                        <i class="fas fa-mobile-screen-button"></i>
+                    </div>
+                    <h3 class="feature-title">니케 (Nikke)</h3>
+                </div>
+                <div class="feature-desc">
+                    <p>현재는 유기 중...<br/>가끔씩 생각나면 들어갑니다.<br/><span style="color: #A0AEC0; font-size: 14px;">(언젠가 돌아올지도?)</span></p>
+                </div>
+                <div class="sticker" style="bottom: 12px; right: 12px; opacity: 0.6;">📱</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-header">
+                    <div class="icon-box icon-viewer">
+                        <i class="fas fa-dice"></i>
+                    </div>
+                    <h3 class="feature-title">시청자 추천</h3>
+                </div>
+                <div class="feature-desc">
+                    <p>룰렛 뽑기권, 시청자 추천픽 등<br/>다양한 컨텐츠를 위해<br/>항상 노력하는 스트리머!</p>
+                </div>
+                <div class="sticker" style="bottom: 12px; right: 12px; opacity: 0.6;">🎲</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

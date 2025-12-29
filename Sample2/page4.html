@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=1280, height=720, initial-scale=1.0" name="viewport" />
+    <title>네푸리 관찰 가이드</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jua&amp;family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FFF5F5;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-color: #FFF5F5;
+            padding: 40px 60px;
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        .header-section {
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .main-title {
+            font-family: 'Jua', sans-serif;
+            font-size: 48px;
+            color: #C53030;
+            /* Red 700 */
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0px white;
+        }
+
+        .sub-title {
+            font-size: 18px;
+            color: #718096;
+            font-weight: 500;
+        }
+
+        /* Cards Container */
+        .cards-container {
+            display: flex;
+            gap: 20px;
+            flex: 1;
+            z-index: 10;
+        }
+
+        /* Individual Card */
+        .guide-card {
+            flex: 1;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 15px rgba(229, 62, 62, 0.05);
+            border: 2px solid #FED7D7;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(229, 62, 62, 0.15);
+        }
+
+        /* Number Badge */
+        .step-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #FC8181;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Jua', sans-serif;
+            font-size: 18px;
+            border: 3px solid white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .step-badge:hover {
+            transform: translateX(-50%) scale(1.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .icon-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: #FFF5F5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            color: #E53E3E;
+            font-size: 32px;
+            border: 2px solid #FED7D7;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .icon-circle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .card-title {
+            font-family: 'Jua', sans-serif;
+            font-size: 24px;
+            color: #2D3748;
+            margin-bottom: 5px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: #E53E3E;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            background-color: #FFF5F5;
+            padding: 4px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .card-content {
+            font-size: 15px;
+            color: #4A5568;
+            line-height: 1.6;
+            text-align: center;
+            word-break: keep-all;
+        }
+
+        /* Summary Box */
+        .summary-box {
+            margin-top: 30px;
+            background-color: #FFFAF0;
+            /* Orange 50 */
+            border: 2px solid #FBD38D;
+            /* Orange 200 */
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            z-index: 10;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+        }
+
+        .summary-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background-color: #FFF8E1;
+        }
+
+        .summary-icon {
+            font-size: 30px;
+            color: #DD6B20;
+        }
+
+        .summary-text {
+            font-family: 'Jua', sans-serif;
+            font-size: 20px;
+            color: #C05621;
+            /* Orange 700 */
+            margin: 0;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* Decorative Background */
+        .deco-blob {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.5;
+            filter: blur(40px);
+        }
+
+        .blob-1 {
+            top: -50px;
+            left: -50px;
+            width: 300px;
+            height: 300px;
+            background-color: #FEB2B2;
+            border-radius: 50%;
+        }
+
+        .blob-2 {
+            bottom: -50px;
+            right: -50px;
+            width: 400px;
+            height: 400px;
+            background-color: #FEEBC8;
+            border-radius: 50%;
+        }
+
+        /* Highlights in text */
+        .highlight {
+            font-weight: 700;
+            color: #C53030;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container"> <!-- Background Decorations -->
+        <div class="deco-blob blob-1"></div>
+        <div class="deco-blob blob-2"></div> <!-- Header -->
+        <div class="header-section">
+            <h1 class="main-title">🎮 네푸리 관찰 가이드 (사용 설명서)</h1>
+            <p class="sub-title">네푸리님과 더 즐겁게 소통하고 싶다면 아래 가이드를 참고해 보세요!</p>
+        </div> <!-- 4 Step Cards -->
+        <div class="cards-container"> <!-- Card 1 -->
+            <div class="guide-card">
+                <div class="step-badge">1</div>
+                <div class="icon-circle"> <i class="fas fa-bolt"></i> </div>
+                <h2 class="card-title">주요 소통 방식</h2>
+                <div class="card-subtitle">"놀려야 제맛!"</div>
+                <div class="card-content">
+                    <p><strong>티격태격 케미</strong>가 방송의 핵심!<br /> 선을 지키며 장난을 치면<br /> <span class="highlight">찰진 반응</span>이
+                        돌아옵니다.</p>
+                </div>
+            </div> <!-- Card 2 -->
+            <div class="guide-card">
+                <div class="step-badge">2</div>
+                <div class="icon-circle"> <i class="fas fa-face-flushed"></i> </div>
+                <h2 class="card-title">반전 매력</h2>
+                <div class="card-subtitle">"칭찬은 네푸리를 고장 낸다"</div>
+                <div class="card-content">
+                    <p>"착하다", "예쁘다" 같은 진심 칭찬에<br /> 어쩔 줄 몰라 하며 <span class="highlight">부끄러움 폭발!</span><br /> 결국 '야랄'하며
+                        부정합니다.</p>
+                </div>
+            </div> <!-- Card 3 -->
+            <div class="guide-card">
+                <div class="step-badge">3</div>
+                <div class="icon-circle"> <i class="fas fa-magnet"></i> </div>
+                <h2 class="card-title">집착과 애정 사이</h2>
+                <div class="card-subtitle">"적당한 거리 두기"</div>
+                <div class="card-content">
+                    <p>안 오면 서운해하고 집착하지만,<br /> 너무 과하면 부담스러워해요.<br /> <span class="highlight">'적당한 관심'</span> 유지가 핵심!</p>
+                </div>
+            </div> <!-- Card 4 -->
+            <div class="guide-card">
+                <div class="step-badge">4</div>
+                <div class="icon-circle"> <i class="fas fa-kit-medical"></i> </div>
+                <h2 class="card-title">주의 사항 및 케어</h2>
+                <div class="card-subtitle">"쓰담쓰담 금지 &amp; 컨디션 체크"</div>
+                <div class="card-content">
+                    <p>쓰담쓰담은 부끄러워 <span class="highlight">'야랄' 모드</span> 진입!<br /> 아파 보이거나 힘들어할 땐<br /> 장난을 멈추고 따뜻하게
+                        달래주세요.</p>
+                </div>
+            </div>
+        </div> <!-- Summary Footer -->
+        <div class="summary-box"> <i class="fas fa-quote-left summary-icon"></i>
+            <h3 class="summary-text">"놀리면 재밌고, 칭찬하면 고장 나며, 안 오면 집착하지만,<br />많이 오면 부담스러워하는... 귀여운 모순 덩어리!"</h3> <i
+                class="fas fa-quote-right summary-icon"></i>
+        </div>
+    </div>
+</body>
+
+</html>

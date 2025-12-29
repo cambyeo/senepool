@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport"/>
+<title>스트리머 관계도</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Jua&amp;family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        font-family: 'Noto Sans KR', sans-serif;
+        background-color: #FFF5F5;
+    }
+    
+    .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background-color: #FFF5F5;
+        padding: 40px 60px;
+        box-sizing: border-box;
+    }
+
+    /* Background Decorations */
+    .blob {
+        position: absolute;
+        filter: blur(50px);
+        z-index: 0;
+        opacity: 0.5;
+        border-radius: 50%;
+    }
+    .blob-1 { top: -100px; left: -50px; width: 500px; height: 500px; background: #FED7D7; }
+    .blob-2 { bottom: -100px; right: -50px; width: 450px; height: 450px; background: #FEEBC8; }
+    
+    /* Header */
+    .header-section {
+        text-align: center;
+        margin-bottom: 40px;
+        z-index: 10;
+        position: relative;
+    }
+    
+    .main-title {
+        font-family: 'Jua', sans-serif;
+        font-size: 48px;
+        color: #C53030;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 0px white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .sub-title {
+        font-size: 18px;
+        color: #718096;
+        background-color: rgba(255,255,255,0.8);
+        padding: 8px 20px;
+        border-radius: 20px;
+        display: inline-block;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* Cards Layout */
+    .cards-wrapper {
+        display: flex;
+        gap: 40px;
+        flex: 1;
+        z-index: 10;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding-bottom: 20px;
+    }
+
+    /* Card Design */
+    .relation-card {
+        flex: 1;
+        max-width: 500px;
+        background: white;
+        border-radius: 24px;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        border: 4px solid white;
+        transition: transform 0.3s, box-shadow 0.3s;
+        height: 420px;
+        position: relative;
+    }
+    
+    .relation-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(229, 62, 62, 0.1);
+    }
+
+    /* Card Themes */
+    .card-hamster {
+        background: linear-gradient(to bottom, #FFFFF0 0%, #FFFFFF 100%); /* Simulating light yellow bg */
+        border-color: #FBD38D;
+    }
+    
+    .card-friend {
+        background: linear-gradient(to bottom, #F0FFF4 0%, #FFFFFF 100%); /* Simulating light green bg */
+        border-color: #9AE6B4;
+    }
+
+    /* Avatar Section */
+    .avatar-wrapper {
+        position: relative;
+        margin-bottom: 20px;
+    }
+    
+    .avatar-circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        border: 4px solid white;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        z-index: 2;
+        position: relative;
+    }
+    
+    .card-hamster .avatar-circle { background-color: #FEEBC8; color: #975A16; }
+    .card-friend .avatar-circle { background-color: #C6F6D5; color: #276749; }
+
+    .status-badge {
+        position: absolute;
+        bottom: 0;
+        right: -10px;
+        background-color: #E53E3E;
+        color: white;
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-weight: 700;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        z-index: 3;
+        white-space: nowrap;
+    }
+
+    /* Text Content */
+    .name-title {
+        font-family: 'Jua', sans-serif;
+        font-size: 28px;
+        color: #2D3748;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    
+    .tags-container {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .tag {
+        font-size: 13px;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-weight: 600;
+    }
+    
+    .card-hamster .tag { background-color: #FEFCBF; color: #744210; border: 1px solid #F6E05E; }
+    .card-friend .tag { background-color: #E6FFFA; color: #2C7A7B; border: 1px solid #81E6D9; }
+
+    .desc-box {
+        background-color: rgba(255,255,255,0.6);
+        border-radius: 12px;
+        padding: 15px;
+        font-size: 15px;
+        color: #4A5568;
+        line-height: 1.6;
+        text-align: center;
+        flex: 1;
+        width: 100%;
+        margin-bottom: 20px;
+        border: 1px dashed rgba(0,0,0,0.1);
+        word-break: keep-all;
+    }
+    
+    .desc-box p {
+        margin: 0;
+    }
+
+    /* Footer Link */
+    .link-btn {
+        width: 100%;
+        padding: 12px;
+        border-radius: 12px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.2s;
+    }
+    
+    .card-hamster .link-btn {
+        background-color: #FBD38D;
+        color: #744210;
+    }
+    .card-hamster .link-btn:hover { background-color: #F6AD55; }
+    
+    .card-friend .link-btn {
+        background-color: #9AE6B4;
+        color: #22543D;
+    }
+    .card-friend .link-btn:hover { background-color: #68D391; }
+
+    /* Connection Line */
+    .connection-line {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        height: 4px;
+        background-color: #FED7D7;
+        z-index: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .heart-icon {
+        background-color: #FFF5F5;
+        color: #E53E3E;
+        font-size: 24px;
+        padding: 0 10px;
+    }
+
+    .sticker {
+        position: absolute;
+        z-index: 20;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+
+</style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Backgrounds -->
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<!-- Header -->
+<div class="header-section">
+<h1 class="main-title">
+<i class="fas fa-handshake-simple" style="color: #F687B3;"></i>
+            다른 스트리머와의 관계
+        </h1>
+<div class="sub-title">네푸리와 찐친 케미를 보여주는 소중한 인연들</div>
+</div>
+<!-- Relationship Cards -->
+<div class="cards-wrapper">
+<!-- Card 1: Hamster -->
+<div class="relation-card card-hamster">
+<div class="avatar-wrapper">
+<div class="avatar-circle">
+<i class="fas fa-otter"></i>
+</div>
+<div class="status-badge">실친 &amp; 염탐</div>
+</div>
+<h2 class="name-title">난 에궁 (햄스터)</h2>
+<div class="tags-container">
+<span class="tag">#실제친구</span>
+<span class="tag">#방종후_염탐</span>
+<span class="tag">#빨간약_소식통</span>
+</div>
+<div class="desc-box">
+<p>
+                    "방송 컨텐츠 상으로는 접점이 거의 없지만, 
+                    <strong>방종 후 몰래 염탐하러 가는 사이!</strong>"<br/><br/>
+                    간간히 들려오는 빨간약 소식의 근원지...?
+                </p>
+</div>
+<a class="link-btn" href="https://chzzk.naver.com/9f673229b644e81373811f7e272b2098" target="_blank">
+<i class="fas fa-tv"></i> CHZZK 채널 바로가기
+            </a>
+<!-- Deco -->
+<div class="sticker" style="top: -10px; left: -10px; font-size: 30px; transform: rotate(-15deg);">🐹</div>
+</div>
+<!-- Connection Visual -->
+<div class="connection-line" style="display: none;"> <!-- Hidden for cleaner layout but kept structure -->
+<i class="fas fa-heart heart-icon"></i>
+</div>
+<!-- Card 2: Seoseoun -->
+<div class="relation-card card-friend">
+<div class="avatar-wrapper">
+<div class="avatar-circle">
+<i class="fas fa-user-friends"></i>
+</div>
+<div class="status-badge">매니저(?) &amp; 실친</div>
+</div>
+<h2 class="name-title">서서운</h2>
+<div class="tags-container">
+<span class="tag">#실제친구</span>
+<span class="tag">#무늬만_매니저</span>
+<span class="tag">#상호_염탐</span>
+</div>
+<div class="desc-box">
+<p>
+                    "네푸리 방의 매니저 역할을 가지고는 있으나,<br/>
+<strong>실제 역할은 하지 않고 서로 염탐하는 사이</strong>"<br/><br/>
+                    서로의 방송을 지켜보며 챙겨주는 찐친 바이브!
+                </p>
+</div>
+<a class="link-btn" href="https://chzzk.naver.com/8e9ba6ef955c153a6d34bf98bb5d4acc" target="_blank">
+<i class="fas fa-tv"></i> CHZZK 채널 바로가기
+            </a>
+<!-- Deco -->
+<div class="sticker" style="top: -10px; right: -10px; font-size: 30px; transform: rotate(15deg);">👀</div>
+</div>
+</div>
+<!-- Floating Sticker Decorations -->
+<div class="sticker" style="bottom: 50px; left: 100px; font-size: 40px; transform: rotate(10deg); opacity: 0.8;">🔍</div>
+<div class="sticker" style="top: 150px; right: 100px; font-size: 35px; transform: rotate(-20deg); opacity: 0.6;">🤝</div>
+</div>
+</body>
+</html>

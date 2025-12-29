@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>규칙 및 채널 정보</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&amp;family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+    <style>
+        /* 기본 설정 및 스케일러 유지 */
+        html, body {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: #2D3748; display: flex;
+            align-items: center; justify-content: center; overflow: hidden;
+        }
+
+        #scaler {
+            width: 1280px; height: 720px; transform-origin: center;
+            flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+        }
+
+        .slide-container {
+            width: 1280px; height: 720px; display: flex; flex-direction: column;
+            position: relative; background-color: #FFF5F5; padding: 30px 50px;
+            box-sizing: border-box; overflow: hidden;
+        }
+
+        /* 배경 및 헤더 */
+        .blob { position: absolute; filter: blur(40px); z-index: 0; border-radius: 50%; opacity: 0.6; transition: all 1s ease; }
+        .blob-1 { top: -50px; right: -50px; width: 400px; height: 400px; background-color: #FED7D7; }
+        .blob-2 { bottom: -50px; left: -50px; width: 350px; height: 350px; background-color: #FEFCBF; }
+        
+        .header { text-align: center; margin-bottom: 20px; z-index: 10; }
+        .main-title { font-family: 'Jua', sans-serif; font-size: 42px; color: #C53030; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .sub-title { font-size: 16px; color: #718096; background-color: rgba(255,255,255,0.8); padding: 5px 15px; border-radius: 15px; display: inline-block; }
+
+        .content-wrapper { display: flex; gap: 30px; flex: 1; z-index: 10; height: 100%; overflow: hidden; padding-bottom: 10px; }
+
+        /* [Hover 보강] 패널 스타일 */
+        .panel { 
+            flex: 1; background: white; border-radius: 24px; padding: 25px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 3px solid white; 
+            display: flex; flex-direction: column; min-height: 0; 
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .panel:hover { box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .panel-left { border-color: #FEB2B2; }
+        .panel-right { border-color: #9AE6B4; }
+        .panel-left:hover { border-color: #F687B3; }
+        .panel-right:hover { border-color: #48BB78; }
+
+        .panel-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px dashed #E2E8F0; flex-shrink: 0; }
+        .panel-icon { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white; transition: transform 0.3s; }
+        .panel:hover .panel-icon { transform: rotate(10deg) scale(1.1); }
+        .icon-rules { background-color: #F687B3; }
+        .icon-links { background-color: #48BB78; }
+        .panel-title { font-family: 'Jua', sans-serif; font-size: 28px; color: #2D3748; }
+
+        .section-label { font-family: 'Jua', sans-serif; font-size: 18px; color: #E53E3E; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; margin-top: 5px; }
+
+        /* 첫인사 영역 */
+        .chat-container { display: flex; gap: 15px; margin-bottom: 20px; background-color: #FFF5F5; padding: 12px; border-radius: 15px; flex-shrink: 0; }
+        .bubble-wrapper { flex: 1; display: flex; flex-direction: column; align-items: center; }
+        .bubble { background: white; padding: 8px 16px; border-radius: 20px; font-family: 'Jua', sans-serif; font-size: 18px; position: relative; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 8px; width: 100%; text-align: center; border: 2px solid transparent; transition: all 0.2s; }
+        .bubble:hover { transform: scale(1.05); }
+        .bubble::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); border-width: 8px 8px 0; border-style: solid; }
+        .bubble-viewer { color: #2C5282; border-color: #BEE3F8; }
+        .bubble-viewer::after { border-color: #BEE3F8 transparent transparent transparent; }
+        .bubble-streamer { color: #9B2C2C; border-color: #FED7D7; }
+        .bubble-streamer::after { border-color: #FED7D7 transparent transparent transparent; }
+
+        /* [Hover 보강] 규칙 리스트 */
+        .rules-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        .rule-item { 
+            background-color: #FAFAFA; padding: 10px 15px; border-radius: 12px; 
+            display: flex; align-items: center; gap: 12px; border: 1px solid #EDF2F7; 
+            transition: all 0.2s ease;
+        }
+        .rule-item:hover { transform: translateX(8px); background-color: #FFF5F5; border-color: #FEB2B2; }
+        .rule-num { background-color: #F56565; color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: bold; flex-shrink: 0; transition: transform 0.3s; }
+        .rule-item:hover .rule-num { transform: scale(1.2) rotate(360deg); }
+        .rule-text { font-size: 15px; color: #4A5568; line-height: 1.4; font-weight: 500; }
+
+        /* [Hover 보강] 리액션 카드 */
+        .reaction-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
+        .reaction-card { 
+            background-color: #FFFFF0; border: 1px solid #FBD38D; border-radius: 12px; 
+            padding: 8px; text-align: center; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: default;
+        }
+        .reaction-card:hover { transform: scale(1.1); background-color: #FFFBEB; box-shadow: 0 5px 15px rgba(214, 158, 46, 0.2); z-index: 5; }
+        .reaction-price { font-size: 13px; font-weight: 800; color: #D69E2E; margin-bottom: 2px; }
+        .reaction-text { font-family: 'Jua', sans-serif; font-size: 15px; color: #744210; }
+
+        /* [Hover 보강] 관련 채널 링크 */
+        .links-grid { display: flex; flex-direction: column; gap: 12px; overflow-y: auto; padding-right: 5px; flex: 1; }
+        .links-grid::-webkit-scrollbar { width: 6px; }
+        .links-grid::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 10px; }
+
+        .link-card { 
+            display: flex; align-items: center; padding: 12px 15px; border-radius: 16px; 
+            text-decoration: none; border: 1px solid transparent; flex-shrink: 0;
+            transition: all 0.3s ease; position: relative; overflow: hidden;
+        }
+        .link-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
+        }
+        .link-card:hover::before { left: 100%; }
+        .link-card:hover { transform: translateX(5px) scale(1.02); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+
+        .link-icon-box { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-right: 15px; color: white; flex-shrink: 0; transition: all 0.3s; }
+        .link-card:hover .link-icon-box { transform: scale(1.1) rotate(-5deg); }
+
+        .link-naver { background-color: #F0FFF4; border-color: #C6F6D5; }
+        .link-naver:hover { background-color: #DCFCE7; border-color: #03C75A; }
+        .link-naver .link-icon-box { background-color: #03C75A; }
+        
+        .link-youtube { background-color: #FFF5F5; border-color: #FED7D7; }
+        .link-youtube:hover { background-color: #FEE2E2; border-color: #FF0000; }
+        .link-youtube .link-icon-box { background-color: #FF0000; }
+        
+        .link-twitter { background-color: #F8FAFC; border-color: #E2E8F0; }
+        .link-twitter:hover { background-color: #F1F5F9; border-color: #000000; }
+        .link-twitter .link-icon-box { background-color: #000000; }
+        
+        .link-fancim { background-color: #FAF5FF; border-color: #E9D8FD; }
+        .link-fancim:hover { background-color: #F3E8FF; border-color: #9F7AEA; }
+        .link-fancim .link-icon-box { background-color: #9F7AEA; }
+
+        .link-discord { background-color: #EDF2F7; border-color: #CBD5E0; opacity: 0.7; cursor: not-allowed; }
+
+        /* [Hover 보강] 스티커 애니메이션 */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-10deg) scale(1); }
+            50% { transform: rotate(10deg) scale(1.2); }
+        }
+        .sticker { position: absolute; z-index: 20; cursor: pointer; transition: all 0.3s; }
+        .sticker:hover { animation: wiggle 0.5s infinite; }
+
+        .tag-badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; color: white; background-color: #A0AEC0; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="scaler">
+        <div class="slide-container">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+
+            <div class="header">
+                <h1 class="main-title">
+                    <i class="fas fa-clipboard-check"></i> 규칙 · 리액션 · 채널
+                </h1>
+                <div class="sub-title">즐거운 방송을 위한 약속과 소통 창구</div>
+            </div>
+
+            <div class="content-wrapper">
+                <div class="panel panel-left">
+                    <div class="section-label"><i class="fas fa-comment-dots"></i> 첫인사</div>
+                    <div class="chat-container">
+                        <div class="bubble-wrapper">
+                            <div class="bubble bubble-viewer">세하~</div>
+                            <div class="bubble-label">랑구 (입장 시)</div>
+                        </div>
+                        <div style="display: flex; align-items: center; color: #CBD5E0;">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div class="bubble-wrapper">
+                            <div class="bubble bubble-streamer">안농~</div>
+                            <div class="bubble-label">세네풀 (답변)</div>
+                        </div>
+                    </div>
+
+                    <div class="section-label"><i class="fas fa-exclamation-circle"></i> 방송 규칙</div>
+                    <div class="rules-list">
+                        <div class="rule-item">
+                            <div class="rule-num">1</div>
+                            <div class="rule-text">지나친 욕설 및 상식 외적인 행동 금지</div>
+                        </div>
+                        <div class="rule-item">
+                            <div class="rule-num">2</div>
+                            <div class="rule-text">네푸리가 먼저 말하지 않는 경우 타스 언급 금지</div>
+                        </div>
+                        <div class="rule-item">
+                            <div class="rule-num">3</div>
+                            <div class="rule-text">지나친 가치코이는 조심! 네푸리는 모두의 것♥</div>
+                        </div>
+                    </div>
+
+                    <div class="section-label"><i class="fas fa-gift"></i> 도네 리액션</div>
+                    <div class="reaction-grid">
+                        <div class="reaction-card">
+                            <div class="reaction-price">1,000 원</div>
+                            <div class="reaction-text">고마워~</div>
+                        </div>
+                        <div class="reaction-card">
+                            <div class="reaction-price">10,000 원</div>
+                            <div class="reaction-text">까악~ 까악~</div>
+                        </div>
+                        <div class="reaction-card">
+                            <div class="reaction-price">100,000 원</div>
+                            <div class="reaction-text">애교 OR 협상</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-right">
+                    <div class="panel-header">
+                        <div class="panel-icon icon-links">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <h2 class="panel-title">관련 채널</h2>
+                    </div>
+                    <div class="links-grid">
+                        <a class="link-card link-naver" href="https://cafe.naver.com/senepuuul" target="_blank">
+                            <div class="link-icon-box"><i class="fas fa-coffee"></i></div>
+                            <div class="link-info">
+                                <div class="link-name">네이버 팬카페</div>
+                                <div class="link-desc">방송 공지 및 소통의 중심지</div>
+                            </div>
+                            <i class="fas fa-external-link-alt text-gray-400"></i>
+                        </a>
+                        <a class="link-card link-youtube" href="https://www.youtube.com/@senepuuul" target="_blank">
+                            <div class="link-icon-box"><i class="fab fa-youtube"></i></div>
+                            <div class="link-info">
+                                <div class="link-name">유튜브</div>
+                                <div class="link-desc">다시보기 및 하이라이트 영상</div>
+                            </div>
+                            <i class="fas fa-external-link-alt text-gray-400"></i>
+                        </a>
+                        <a class="link-card link-twitter" href="https://x.com/senepuuul" target="_blank">
+                            <div class="link-icon-box"><i class="fab fa-x-twitter"></i></div>
+                            <div class="link-info">
+                                <div class="link-name">X (구 트위터)</div>
+                                <div class="link-desc">빠른 소식 및 일상 공유</div>
+                            </div>
+                            <i class="fas fa-external-link-alt text-gray-400"></i>
+                        </a>
+                        <a class="link-card link-fancim" href="https://fancim.me/celeb/profile.aspx?cu_id=n_AJDpI44ZF/nqmnOJxjCaVA==" target="_blank">
+                            <div class="link-icon-box"><i class="fas fa-envelope-open-text"></i></div>
+                            <div class="link-info">
+                                <div class="link-name">팬심 (Fancim)</div>
+                                <div class="link-desc">현실 선물 보내기 &amp; 팬심M</div>
+                            </div>
+                            <i class="fas fa-external-link-alt text-gray-400"></i>
+                        </a>
+                        <div class="link-card link-discord">
+                            <div class="link-icon-box"><i class="fab fa-discord"></i></div>
+                            <div class="link-info">
+                                <div class="link-name">디스코드 <span class="tag-badge ml-2">잠정 폐쇄</span></div>
+                                <div class="link-desc">현재 운영하지 않습니다.</div>
+                            </div>
+                            <i class="fas fa-lock text-gray-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sticker" style="bottom: 25px; left: 30px; font-size: 35px; transform: rotate(-10deg);">📢</div>
+            <div class="sticker" style="top: 85px; right: 30px; font-size: 35px; transform: rotate(15deg);">🔗</div>
+        </div>
+    </div>
+
+    <script>
+        function setScale() {
+            const scaler = document.getElementById('scaler');
+            const winWidth = window.innerWidth;
+            const winHeight = window.innerHeight;
+            const targetWidth = 1280;
+            const targetHeight = 720;
+            const scale = Math.min(winWidth / targetWidth, winHeight / targetHeight);
+            scaler.style.transform = `scale(${scale})`;
+        }
+        window.addEventListener('resize', setScale);
+        window.addEventListener('load', setScale);
+            setScale();
+    </script>
+</body>
+</html>
