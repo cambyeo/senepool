@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>세네풀 가이드 슬라이더</title>
+    <title>세네풀 유입 설명회</title>
     <style>
         body, html {
             margin: 0; padding: 0;
@@ -149,7 +149,9 @@
             if (nextIdx >= 1 && nextIdx <= totalPages) {
                 currentPage = nextIdx;
                 
-                frame.src = `page${currentPage}.html`;
+                //frame.src = `page${currentPage}.html`;
+                const nocache = new Date().getTime(); 
+                frame.src = `page${currentPage}.html?v=${nocache}`;
                 
                 // 페이지 정보 갱신
                 info.innerText = `${currentPage} / ${totalPages}`;
